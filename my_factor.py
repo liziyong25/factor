@@ -16,7 +16,7 @@ start = 20170101
 end = 20180101
 
 #由于CashDividendCover内部的cash数据无法获取，因此因子无法计算
-#由于EquityFixedAssetRatio内部的constru_in_prog数据无法获取，因此因子无法计算
+
 factor_list  = ['SaleServiceCashToOR' ,'alpha158','CoppockCurve' ,'OperatingProfitRatio', 'alpha147' ,'alpha57' ,'EquityFixedAssetRatio']
 
 check_factor = ','.join(factor_list)
