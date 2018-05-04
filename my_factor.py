@@ -41,6 +41,7 @@ dv.prepare_data()
 
 def alpha158():
     #((HIGH-SMA(CLOSE,15,2))-(LOW-SMA(CLOSE,15,2)))/CLOSE
+
     alpha158 = dv.add_formula('alpha158'," ((high-Ta('SMA',0,open,high,low,close,volume,15,2))-(low-Ta('SMA',0,open,high,low,close,volume,15,2))) ",is_quarterly = False)
     return alpha158
 
@@ -54,6 +55,7 @@ def alpha147():
 
 def alpha57():
     #SMA((CLOSE-TSMIN(LOW,9))/(TSMAX(HIGH,9)-TSMIN(LOW,9))*100,3,1)
+
     dv.add_formula('par','close-Ts_Min(low,9)/(Ts_Max(high,9)-Ts_Min(low,9))*100', is_quarterly = False ,add_data = True) #创建中间变量
     alpha57 = dv.add_formula('alpha57', "Ta('SMA',0,par,par,par,par,par,3,1)",is_quarterly = False)
     return alpha57
@@ -62,7 +64,7 @@ def alpha57():
 def SaleServiceCashToOR():
     dv.add_field('cash_recp_sg_and_rs',ds)
     dv.add_field('oper_rev',ds)
-    SaleServiceCashToOR = dv.add_formula('SaleServiceCashToOR' , 'cash_recp_sg_and_rs/oper_rev' , is_quarterly = False)
+    SaleServiceCashToOR = dv.add_formula('SaleServiceCashToOR' , 'cash_recp_sg_and_rs/oper_rev' , is_quarterly = True)
     return SaleServiceCashToOR
 
 
