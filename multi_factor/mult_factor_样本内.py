@@ -68,7 +68,12 @@ alpha9 = dv.add_formula('alpha9','If((Ts_Min(low,17)-close)>0 ,close ,close-Ts_M
 dv.add_formula('MEAN','Ts_Mean(close,5)',is_quarterly = False, add_data = True)
 alpha10 = dv.add_formula('alpha10', "Ta('LINEARREG_SLOPE',0,MEAN,MEAN,MEAN,MEAN,MEAN,5)", is_quarterly = False,add_data = True)
 dv.add_formula('alpha11','Return(tot_profit)',is_quarterly = True , add_data = True)
-
+dv.add_field('pb',ds)
+dv.add_field('pe',ds)
+dv.add_field('ps',ds)
+dv.add_field('free_turnover_ratio',ds)
+dv.add_formula('alpha12','pb+pe+ps',is_quarterly = False , add_data = True)
+dv.add_formula('alpha13','-1*Ts_Sum(free_turnover_ratio,20)',is_quarterly = False , add_data = True)
 #---------------------------------------------
 import numpy as np
 
