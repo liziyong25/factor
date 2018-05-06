@@ -68,7 +68,13 @@ alpha9 = dv.add_formula('alpha9','If((Ts_Min(low,17)-close)>0 ,close ,close-Ts_M
 dv.add_formula('MEAN','Ts_Mean(close,5)',is_quarterly = False, add_data = True)
 alpha10 = dv.add_formula('alpha10', "Ta('LINEARREG_SLOPE',0,MEAN,MEAN,MEAN,MEAN,MEAN,5)", is_quarterly = False,add_data = True)
 dv.add_formula('alpha11','Return(tot_profit)',is_quarterly = True , add_data = True)
-
+dv.add_field('pb',ds)
+dv.add_field('pe',ds)
+dv.add_field('ps',ds)
+dv.add_field('free_turnover_ratio',ds)
+dv.add_formula('alpha12','pb+pe+ps',is_quarterly = False , add_data = True)
+dv.add_formula('alpha13','-1*Ts_Sum(free_turnover_ratio,20)',is_quarterly = False , add_data = True)
+dv.add_formula('alpha14','Ts_Mean(Abs((close-Delay(close,1))/Delay(close,1))/volume,20)',is_quarterly = False , add_data = True)
 #---------------------------------------------
 import numpy as np
 
@@ -213,16 +219,26 @@ def result(comb_factors,name,method):
 #合成两个多因子
 #step1 预处理----------
 factor_1 = Pretreatment(["alpha6","alpha5","alpha9"])
-factor_2 = Pretreatment(["alpha4","alpha5","alpha6"])
+factor_2 = Pretreatment(["alpha12","alpha13","alpha6"])
+factor_3 = Pretreatment(["alpha12","alpha13","alpha8"])
+factor_4 = Pretreatment(["alpha14","alpha13","alpha3"])
 #step2 合成因子-------
 comb_factor_1 = multi(factor_1)
 comb_factor_2 = multi(factor_2)
+comb_factor_3 = multi(factor_3)
+comb_factor_4 = multi(factor_4)
 #step3 获取ic表值----------
 factor_ic_1 = get_ic_df(comb_factor_1)
 factor_ic_2 = get_ic_df(comb_factor_2)
-#step4 获取日表值
-factor_ir_1 = get_ir(factor_ic_1)
-factor_ir_2 = get_ir(factor_ic_2)
+factor_ic_3 = get_ic_df(comb_factor_3)
+factor_ic_4 = get_ic_df(comb_factor_4)
+#step4 获取日ir表值
+ir_1 = get_ir(factor_ic_1)
+ir_2 = get_ir(factor_ic_2)
+ir_3 = get_ir(factor_ic_3)
+ir_4 = get_ir(factor_ic_4)
 #step5 输出结果
 result(comb_factor_1,'factor_1',"ic_weight")
 result(comb_factor_2,'factor_2',"ic_weight")
+result(comb_factor_3,'factor_3',"ic_weight")
+result(comb_factor_4,'factor_4',"ic_weight")
