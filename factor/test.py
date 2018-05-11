@@ -59,7 +59,7 @@ def test(factor,data):
             raise TypeError('error index type')
         print ('{} OK!'.format(factor))
 
-from factor import alpha1,alpha2,alpha3,alpha4,alpha5,alpha6,alpha7,alpha8,alpha9,alpha10,SaleServiceCashToOR ,alpha158,CoppockCurve ,OperatingProfitRatio, alpha147 ,alpha57 ,EquityFixedAssetRatio
+import alpha1,alpha2,alpha3,alpha4,alpha5,alpha6,alpha7,alpha8,alpha9,alpha10,SaleServiceCashToOR ,alpha158,CoppockCurve ,OperatingProfitRatio, alpha147 ,alpha57 ,EquityFixedAssetRatio
 
 for f in ['SaleServiceCashToOR' ,'alpha158','CoppockCurve' ,'OperatingProfitRatio', 'alpha147' ,'alpha57' ,'EquityFixedAssetRatio','alpha1','alpha2','alpha3','alpha4','alpha5','alpha6','alpha7','alpha8','alpha9','alpha10']:
     test(f, globals()[f].run_formula(dv,ds))
